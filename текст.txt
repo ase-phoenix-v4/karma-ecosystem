@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARMA ECOSYSTEM — Web3 Trust Economy</title>
+    <style>
+        :root {
+            --phx: #ff6b00;
+            --bg: #000010;
+            --gold: #ffd700;
+            --cyan: #00ccff;
+            --purple: #8844ff;
+            --green: #00ff88;
+            --white: #ffffff;
+            --gray: #8899aa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'SF Pro Display', 'Inter', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+        }
+        
+        /* ГРАДИЕНТНЫЙ ФОН */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .bg-gradient::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(255,107,0,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(136,68,255,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0,204,255,0.04) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(2%, -1%); }
+            66% { transform: translate(-1%, 2%); }
+        }
+        
+        /* ЗВЁЗДЫ */
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* НАВИГАЦИЯ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,16,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--phx), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--phx); }
+        .nav-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--phx), #ff4400);
+            color: var(--white);
+            border: none;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,107,0,0.3); }
+        
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 60px;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 900px;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,107,0,0.1);
+            border: 1px solid rgba(255,107,0,0.3);
+            border-radius: 100px;
+            font-size: 11px;
+            color: var(--phx);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 25%, #ff6b00 50%, #8844ff 75%, #00ccff 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: heroGradient 8s ease infinite;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+        @keyframes heroGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .hero p {
+            font-size: clamp(16px, 2vw, 22px);
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--phx), #ff4400);
+            color: var(--white);
+            border: none;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(255,107,0,0.4); }
+        .btn-secondary {
+            padding: 16px 36px;
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-secondary:hover { border-color: var(--phx); background: rgba(255,107,0,0.1); }
+        
+        /* СТАТИСТИКА */
+        .stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 60px 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3);
+        }
+        .stat-item { text-align: center; }
+        .stat-value {
+            font-size: 42px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--phx));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: var(--gray);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+        
+        /* СЕКЦИИ */
+        .section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 14px;
+            color: var(--phx);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .section h2 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+        .section p {
+            font-size: 16px;
+            color: var(--gray);
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+        
+        /* КАРТОЧКИ */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
+        }
+        .card:hover {
+            border-color: rgba(255,107,0,0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .card-icon { font-size: 36px; margin-bottom: 20px; }
+        .card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+        .card p { font-size: 13px; color: var(--gray); line-height: 1.5; margin: 0; }
+        
+        /* PHOENIX ARCHITECT СЕКЦИЯ */
+        .architect-section {
+            background: radial-gradient(ellipse at center, rgba(255,107,0,0.08) 0%, transparent 70%);
+            border-top: 1px solid rgba(255,215,0,0.1);
+            border-bottom: 1px solid rgba(255,215,0,0.1);
+            padding: 80px 40px;
+            text-align: center;
+        }
+        .architect-badge {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(136,68,255,0.15));
+            border: 1px solid rgba(255,215,0,0.4);
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .architect-value {
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--phx), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        /* FOOTER */
+        .footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer p {
+            font-size: 12px;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+        .footer .key {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: rgba(255,255,255,0.3);
+            font-size: 11px;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .hero { padding: 100px 20px 40px; }
+            .section { padding: 60px 20px; }
+            .stats { gap: 20px; padding: 40px 20px; }
+            .stat-value { font-size: 28px; }
+            .cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ФОН -->
+    <div class="bg-gradient"></div>
+    <div class="stars" id="stars"></div>
+    
+    <div class="content">
+        <!-- НАВИГАЦИЯ -->
+        <nav class="nav">
+            <div class="nav-logo">⚡ KARMA</div>
+            <div class="nav-links">
+                <a href="#ecosystem">Ecosystem</a>
+                <a href="#products">Products</a>
+                <a href="#nft">NFT</a>
+                <a href="#docs">Docs</a>
+            </div>
+            <a href="#start" class="nav-btn">Launch App</a>
+        </nav>
+        
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">🚀 PHOENIX PRIME v4.0</div>
+                <h1>KARMA<br>ECOSYSTEM</h1>
+                <p>The first AI-powered blockchain ecosystem. 800+ products. 55 billion AI agents. One unified platform for Web3 trust economy.</p>
+                <div class="hero-buttons">
+                    <a href="#start" class="btn-primary">Explore Ecosystem</a>
+                    <a href="#docs" class="btn-secondary">White Paper</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- СТАТИСТИКА -->
+        <div class="stats">
+            <div class="stat-item"><div class="stat-value">800+</div><div class="stat-label">Products</div></div>
+            <div class="stat-item"><div class="stat-value">240+</div><div class="stat-label">Smart Contracts</div></div>
+            <div class="stat-item"><div class="stat-value">55B</div><div class="stat-label">AI Agents</div></div>
+            <div class="stat-item"><div class="stat-value">$2.4M</div><div class="stat-label">Code Value</div></div>
+            <div class="stat-item"><div class="stat-value">$10B+</div><div class="stat-label">Potential</div></div>
+        </div>
+        
+        <!-- ECOSYSTEM -->
+        <section class="section" id="ecosystem">
+            <div class="section-title">Ecosystem</div>
+            <h2>Everything in one<br>platform.</h2>
+            <p>From blockchain to AI, from NFTs to payments — KARMA replaces dozens of separate services with one unified ecosystem.</p>
+            <div class="cards">
+                <div class="card"><div class="card-icon">⛓️</div><h3>KARMA CHAIN</h3><p>Hybrid blockchain with 20,000 TPS, 200 validators, and 8 mining modes.</p></div>
+                <div class="card"><div class="card-icon">🧠</div><h3>AI Systems</h3><p>30+ AI modules powered by 55 billion distributed agents.</p></div>
+                <div class="card"><div class="card-icon">💱</div><h3>DeFi Suite</h3><p>DEX, Lending, Perpetual DEX, Options, Flash Loans, Yield Aggregator.</p></div>
+                <div class="card"><div class="card-icon">🔥</div><h3>NFT Platform</h3><p>PHOENIX LEGACY (10,000 NFTs), OMEGA (100), ARCHITECT (#0).</p></div>
+                <div class="card"><div class="card-icon">🌉</div><h3>Bridge</h3><p>Connect 148 networks. Move assets freely between any blockchain.</p></div>
+                <div class="card"><div class="card-icon">🛡️</div><h3>Security</h3><p>77 defense layers, Quantum TPM, AI-powered Dragon guardian.</p></div>
+            </div>
+        </section>
+        
+        <!-- PHOENIX ARCHITECT -->
+        <div class="architect-section">
+            <div class="architect-badge">👑 NFT #0</div>
+            <div class="architect-value">PHOENIX ARCHITECT</div>
+            <p style="color: var(--gray); max-width: 500px; margin: 0 auto; font-size: 14px;">
+                The most expensive NFT in history. Unique. Soulbound. Belongs to the Architect of KARMA ECOSYSTEM.
+            </p>
+            <p style="margin-top: 20px; font-size: 20px; font-weight: 900; color: var(--gold);">
+                €1,000,000,000
+            </p>
+            <p style="color: var(--gray); font-size: 11px; letter-spacing: 2px;">285,714 ETH</p>
+        </div>
+        
+        <!-- PRODUCTS -->
+        <section class="section" id="products">
+            <div class="section-title">Products</div>
+            <h2>800+ products.<br>One ecosystem.</h2>
+            <div class="cards">
+                <div class="card"><div class="card-icon">💰</div><h3>$KARMA Token</h3><p>Governance token. Gas. Staking. 1B supply. 5% annual inflation.</p></div>
+                <div class="card"><div class="card-icon">🐕</div><h3>$AKITA Token</h3><p>Community meme token. 2% burn rate. 1T supply.</p></div>
+                <div class="card"><div class="card-icon">💵</div><h3>$AUSD Stablecoin</h3><p>Algorithmic stablecoin. 150% collateral. 1 AUSD = $1.</p></div>
+                <div class="card"><div class="card-icon">🏆</div><h3>QUINTESSENCE</h3><p>100 tokens. 1 per year. The rarest asset in the world. Soulbound.</p></div>
+                <div class="card"><div class="card-icon">🎮</div><h3>PHOENIX CORPS</h3><p>AAA mobile FPS. Extraction shooter. Blockchain-based economy.</p></div>
+                <div class="card"><div class="card-icon">🤖</div><h3>PHOENIX HIVE</h3><p>Personal AI with 1 billion agents. Architect-only access.</p></div>
+            </div>
+        </section>
+        
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>🦅 KARMA ECOSYSTEM — PHOENIX PRIME v4.0</p>
+            <p class="key">🔑 0x50484F454E49585F5052494D45</p>
+            <p style="margin-top: 15px; color: var(--gray); font-size: 11px;">
+                For the Architect. Always for the Architect.
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // ЗВЁЗДЫ
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.cssText = `
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                width: ${Math.random() * 2 + 0.5}px;
+                height: ${star.style.width};
+                --duration: ${Math.random() * 3 + 2}s;
+                --delay: ${Math.random() * 5}s;
+            `;
+            starsContainer.appendChild(star);
+        }
+        
+        // ПЛАВНЫЙ СКРОЛЛ
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        console.log('🦅 KARMA ECOSYSTEM — $4,000,000 Landing');
+        console.log('🔑 0x50484F454E49585F5052494D45');
+        console.log('👑 For the Architect. Always for the Architect.');
+    </script>
+</body>
+</html>
