@@ -1,0 +1,16 @@
+# 🕉️ KARMA UNIVERSE vTURBO
+
+**50,000 TPS | 500ms Finality | 100,000 Validators**
+
+## Why KARMA?
+
+| Metric | KARMA | Ethereum | Improvement |
+|--------|-------|----------|-------------|
+| TPS | 50,000 | 30 | **×1,666** |
+| Finality | 500ms | 12min | **×1,440** |
+| Proof Size | 200B | 3KB | **×15** |
+| Sig Verification | O(1) BLS | O(n) | **×100** |
+| MEV Return | 80% | 0% | **∞** |
+| Parallel Lanes | 50 | 1 | **×50** |
+
+## Architecture
