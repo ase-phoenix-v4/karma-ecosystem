@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARMA UNIVERSE — The Next Generation L1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+              background: radial-gradient(ellipse at 30% 50%, rgba(0,255,255,0.05) 0%, transparent 70%),
+                          radial-gradient(ellipse at 70% 20%, rgba(0,255,136,0.03) 0%, transparent 60%);
+              z-index: -1; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        
+        .hero { text-align: center; padding: 60px 20px 40px; }
+        .hero .icon { font-size: 64px; margin-bottom: 16px; }
+        .hero h1 { font-size: 42px; font-weight: 800; 
+                   background: linear-gradient(135deg, #00ffff, #00ff88);
+                   -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: #888; font-size: 18px; margin-top: 8px; }
+
+        .stats { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0; }
+        .stat { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,255,255,0.1);
+                border-radius: 12px; padding: 20px 24px; text-align: center; min-width: 130px; }
+        .stat .val { font-size: 28px; font-weight: 700; color: #00ffff; }
+        .stat .lbl { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+
+        .card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 16px; padding: 24px; margin: 16px 0; }
+        .card h2 { color: #00ffff; font-size: 20px; margin-bottom: 12px; }
+        .card h3 { color: #ccc; margin: 10px 0 6px; font-size: 15px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+        th, td { border: 1px solid rgba(255,255,255,0.06); padding: 10px 14px; text-align: left; }
+        th { background: rgba(0,255,255,0.04); color: #00ffff; font-size: 11px; text-transform: uppercase; }
+        .grn { color: #00ff88; }
+        .yel { color: #ffff00; }
+
+        .btn { display: inline-block; padding: 12px 28px; border-radius: 8px; font-size: 15px;
+               font-weight: 600; text-decoration: none; margin: 6px; transition: all 0.3s; }
+        .btn-p { background: #00ffff; color: #000; }
+        .btn-p:hover { box-shadow: 0 8px 24px rgba(0,255,255,0.3); }
+        .btn-s { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #e0e0e0; }
+        .btn-s:hover { border-color: #00ffff; color: #00ffff; }
+
+        code { background: rgba(0,255,255,0.08); padding: 2px 8px; border-radius: 4px; color: #00ffff; }
+        pre { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08);
+              border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 13px; color: #00ff88; }
+
+        .footer { text-align: center; padding: 30px; color: #444; font-size: 13px; }
+        .footer a { color: #00ffff; text-decoration: none; }
+
+        @media (max-width: 600px) { .hero h1 { font-size: 28px; } .stat { min-width: 90px; padding: 12px; } .stat .val { font-size: 20px; } }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="container">
+        
+        <div class="hero">
+            <div class="icon">🕉️</div>
+            <h1>KARMA UNIVERSE</h1>
+            <p>Production-Grade L1 Blockchain — 50,000 TPS · 500ms Finality</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><div class="val">50,000</div><div class="lbl">Max TPS</div></div>
+            <div class="stat"><div class="val">500ms</div><div class="lbl">Finality</div></div>
+            <div class="stat"><div class="val">200B</div><div class="lbl">Proof Size</div></div>
+            <div class="stat"><div class="val">100K</div><div class="lbl">Validators</div></div>
+            <div class="stat"><div class="val">×1,666</div><div class="lbl">vs Ethereum</div></div>
+        </div>
+
+        <div class="card">
+            <h2>⚡ Why KARMA</h2>
+            <table>
+                <tr><th>Metric</th><th>KARMA</th><th>Ethereum</th><th>Advantage</th></tr>
+                <tr><td>Throughput</td><td class="grn">50,000 TPS</td><td>30 TPS</td><td class="yel">×1,666</td></tr>
+                <tr><td>Finality</td><td class="grn">500ms</td><td>12 minutes</td><td class="yel">×1,440</td></tr>
+                <tr><td>Proof Size</td><td class="grn">200 bytes</td><td>3 KB</td><td class="yel">×15</td></tr>
+                <tr><td>Sig Verification</td><td class="grn">O(1) BLS</td><td>O(n)</td><td class="yel">×100</td></tr>
+                <tr><td>MEV Return</td><td class="grn">80%</td><td>0%</td><td class="yel">∞</td></tr>
+                <tr><td>Parallel Execution</td><td class="grn">50 lanes</td><td>None</td><td class="yel">×50</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>🏗️ Architecture</h2>
+            <table>
+                <tr><th>Layer</th><th>Technology</th></tr>
+                <tr><td>Consensus</td><td>HotStuff-2 BFT + BLS12-381 Aggregation</td></tr>
+                <tr><td>Execution</td><td>Parallel DAG Engine (50 lanes)</td></tr>
+                <tr><td>State</td><td>Verkle Trie + KZG Polynomial Proofs</td></tr>
+                <tr><td>Network</td><td>libp2p QUIC + GossipSub v1.1</td></tr>
+                <tr><td>ZK Proofs</td><td>KZG Commitments (200 bytes)</td></tr>
+                <tr><td>Fraud Proofs</td><td>Deterministic Re-execution</td></tr>
+                <tr><td>MEV</td><td>PBS Auction + 80% Redistribution</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>🚀 Quick Start</h2>
+            <pre>git clone https://github.com/ase-phoenix-v4/karma.git
+cd karma
+dotnet run</pre>
+            <div style="margin-top:12px;">
+                <a href="https://github.com/ase-phoenix-v4/karma" class="btn btn-p">📦 GitHub</a>
+                <a href="https://github.com/ase-phoenix-v4/karma" class="btn btn-s">📖 Docs</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>KARMA UNIVERSE © 2024-2026 · <a href="https://github.com/ase-phoenix-v4/karma">GitHub</a></p>
+            <p style="font-size:11px;margin-top:4px;">"Every action creates dependency, every dependency creates topology, every topology creates destiny."</p>
+        </div>
+    </div>
+</body>
+</html>
